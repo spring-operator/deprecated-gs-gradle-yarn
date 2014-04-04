@@ -11,6 +11,12 @@ buildscript {
 
 // tag::snippetB[]
 allprojects {
+    apply plugin: 'base'
+}
+// end::snippetB[]
+
+// tag::snippetC[]
+subprojects { subproject ->
     apply plugin: 'java'
     apply plugin: 'eclipse'
     apply plugin: 'idea'
@@ -19,18 +25,12 @@ allprojects {
         mavenCentral()
         maven { url "http://repo.spring.io/libs-milestone" }
     }
-}
-// end::snippetB[]
-
-// tag::snippetC[]
-subprojects { subproject ->
-    apply plugin: 'spring-boot'
     dependencies {
         compile("org.springframework.data:spring-yarn-boot:2.0.0.RC2")
     }
     task copyJars(type: Copy) {
         from "$buildDir/libs"
-        into "$rootDir/build/libs"
+        into "$rootDir/gs-gradle-yarn-dist/target/gs-gradle-yarn-dist/"
         include "**/*.jar"
     }
     assemble.doLast {copyJars.execute()}
@@ -38,23 +38,33 @@ subprojects { subproject ->
 // end::snippetC[]
 
 // tag::snippetD[]
-configure(rootProject) {
-    dependencies {
-        compile project(":gs-gradle-yarn-client")
-        compile project(":gs-gradle-yarn-appmaster")
-        compile project(":gs-gradle-yarn-container")
-    }
+project('gs-gradle-yarn-client') {
+    apply plugin: 'spring-boot'
+}
+
+project('gs-gradle-yarn-appmaster') {
+    apply plugin: 'spring-boot'
+}
+
+project('gs-gradle-yarn-container') {
+    apply plugin: 'spring-boot'
 }
 // end::snippetD[]
 
 // tag::snippetE[]
-project('gs-gradle-yarn-client') {
-}
-
-project('gs-gradle-yarn-appmaster') {
-}
-
-project('gs-gradle-yarn-container') {
+project('gs-gradle-yarn-dist') {
+    dependencies {
+        compile project(":gs-gradle-yarn-client")
+        compile project(":gs-gradle-yarn-appmaster")
+        compile project(":gs-gradle-yarn-container")
+        testCompile("org.springframework.data:spring-yarn-boot-test:2.0.0.RC2")
+        testCompile("org.hamcrest:hamcrest-core:1.2.1")
+        testCompile("org.hamcrest:hamcrest-library:1.2.1")
+    }
+    test.dependsOn(':gs-gradle-yarn-client:assemble')
+    test.dependsOn(':gs-gradle-yarn-appmaster:assemble')
+    test.dependsOn(':gs-gradle-yarn-container:assemble')
+    clean.doLast {ant.delete(dir: "target")}
 }
 // end::snippetE[]
 

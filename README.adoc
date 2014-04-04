@@ -11,6 +11,7 @@ projects: [spring-hadoop]
 :yarn_base_appmaster: gs-gradle-yarn-appmaster
 :yarn_base_container: gs-gradle-yarn-container
 :yarn_base_client: gs-gradle-yarn-client
+:yarn_base_dist: gs-gradle-yarn-dist
 This guide walks you through using Gradle to build a simple Spring YARN project.
 
 == What you'll build
@@ -84,41 +85,45 @@ We will be using the Spring Boot Gradle plugin so `repository` and `dependency` 
 include::complete/build.gradle[tags=snippetA]
 ----
 
-Below that section we add the following -- project version as `0.1.0`,
-apply plugins for `java`, `eclipse`, `idea` and add `repositories` to
-resolve all of the third party jar dependencies via Maven
-repositories.
+We apply gradle `base` plugin to all projects. Technically it's only
+needed for a root project order to have i.e. `clean` task in it. But
+it doesn't matter if we add it to all projects.
 
 [source,groovy]
 ----
 include::complete/build.gradle[tags=snippetB]
 ----
 
+Below that section we add the following -- project version as `0.1.0`,
+apply plugins for `java`, `eclipse`, `idea` and add `repositories` to
+resolve all of the third party jar dependencies via Maven
+repositories.
 Next we add `spring-boot` plugin, `spring-yarn-boot` maven
 dependency to all sub-projects. Additionally we create a `copyJars`
-task to copy created jars from a sub-projects into a root project.
-This will make things easier to test and run your application.
-
-The Gradle plugin for `Spring Boot` automatically creates a task to
-repackage a main jar file created from a project.
+task to copy created jars from a sub-projects into a distribute project
+named `gs-yarn-testing-dist`. This will make things easier to
+test and run your application.
 
 [source,groovy]
 ----
 include::complete/build.gradle[tags=snippetC]
 ----
 
-Next, related to what we previously did, we add a compile dependency
-for all sub-projects. This is required later guided when we create
-tests in a root project.
+We add configure section for each sub-project. These are empty for now
+but needed in further guides when more specific dependencies are
+added.
+The Gradle plugin for `Spring Boot` automatically creates a task to
+repackage a main jar file created from a project.
 
 [source,groovy]
 ----
 include::complete/build.gradle[tags=snippetD]
 ----
 
-We add configure section for each sub-project. These are empty for now
-but needed in further guides when more specific dependencies are
-added.
+Next, related to what we previously did, in project
+`gs-gradle-yarn-dist` we add a compile dependency
+for all sub-projects. This is required later guides when we create
+tests to this project.
 
 [source,groovy]
 ----
@@ -149,12 +154,13 @@ You should see three jar files created.
 
 [source,text]
 ----
-build/libs/gs-yarn-gradle-client-0.1.0.jar
-build/libs/gs-yarn-gradle-container-0.1.0.jar
-build/libs/gs-yarn-gradle-appmaster-0.1.0.jar
+gs-gradle-yarn-dist/target/dist/gs-gradle-yarn-client-0.1.0.jar
+gs-gradle-yarn-dist/target/dist/gs-gradle-yarn-container-0.1.0.jar
+gs-gradle-yarn-dist/target/dist/gs-gradle-yarn-appmaster-0.1.0.jar
 ----
 
-You can run the project with `java -jar build/libs/gs-yarn-gradle-client-0.1.0.jar` but we haven't added the code to 
+You can run the project with `cd gs-gradle-yarn-dist && java -jar
+target/dist/gs-gradle-yarn-client-0.1.0.jar` but we haven't added the code to 
 actually submit the YARN application yet. So, all you will see is some logging mesages. You will build a complete
 application that you can submit to YARN in the other Getting Started Guides for Spring YARN.
 

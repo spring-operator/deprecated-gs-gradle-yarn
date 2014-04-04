@@ -1,2 +1,2 @@
 rootProject.name = 'gs-gradle-yarn'
-include 'gs-gradle-yarn-client','gs-gradle-yarn-appmaster','gs-gradle-yarn-container'
+include 'gs-gradle-yarn-client','gs-gradle-yarn-appmaster','gs-gradle-yarn-container','gs-gradle-yarn-dist'
