@@ -139,6 +139,14 @@ gradle binaries.
 include::complete/build.gradle[tags=snippetF]
 ----
 
+We need to create a `settings.gradle` file where we define a name of a
+root project and include sub-projects.
+
+[source,text]
+----
+include::complete/settings.gradle[]
+----
+
 include::https://raw.github.com/spring-guides/getting-started-macros/master/describe_shdp_yarn_deps_gradle.adoc[]
 
 == Build Application Packages
