@@ -130,6 +130,24 @@ tests to this project.
 include::complete/build.gradle[tags=snippetE]
 ----
 
+It is worth to go through what we did in above section for
+`gs-gradle-yarn-dist`:
+
+- Eventually we want to use this project to collect other artifacts
+  together and create some tests. That is why we added dependencies to
+  other projects.
+- We used `test.dependsOn` for all other projects `assembly` task to
+  make sure that Spring Boot's gradle plugin does a repackage before
+  any tests are run. 
+- We ask `clean` task to wipe up our `target` directory. This sounds
+  very `maven` centric but in our samples we try to support same
+  project structure for both `maven` and `gradle`. Also due to
+  limitations in Hadoop's testing classes, some files are hard coded
+  to be created under `target` directory.
+- We disabled `jar` task for this project to reduce noise. Disabling
+  this really doesn't matter but if there is only tests classes in
+  this project this jar would be empty and thus unnecessary.
+
 Last we just add a normal gradle wrapper task which is not needed for
 project itself but allows to use this build file without installing
 gradle binaries.
@@ -162,9 +180,9 @@ You should see three jar files created.
 
 [source,text]
 ----
-gs-gradle-yarn-dist/target/dist/gs-gradle-yarn-client-0.1.0.jar
-gs-gradle-yarn-dist/target/dist/gs-gradle-yarn-container-0.1.0.jar
-gs-gradle-yarn-dist/target/dist/gs-gradle-yarn-appmaster-0.1.0.jar
+gs-gradle-yarn-dist/target/gs-gradle-yarn-dist/gs-gradle-yarn-client-0.1.0.jar
+gs-gradle-yarn-dist/target/gs-gradle-yarn-dist/gs-gradle-yarn-container-0.1.0.jar
+gs-gradle-yarn-dist/target/gs-gradle-yarn-dist/gs-gradle-yarn-appmaster-0.1.0.jar
 ----
 
 You can run the project with `cd gs-gradle-yarn-dist && java -jar

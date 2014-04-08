@@ -65,6 +65,7 @@ project('gs-gradle-yarn-dist') {
     test.dependsOn(':gs-gradle-yarn-appmaster:assemble')
     test.dependsOn(':gs-gradle-yarn-container:assemble')
     clean.doLast {ant.delete(dir: "target")}
+    jar.enabled = false
 }
 // end::snippetE[]
 
