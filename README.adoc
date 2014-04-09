@@ -185,10 +185,11 @@ gs-gradle-yarn-dist/target/gs-gradle-yarn-dist/gs-gradle-yarn-container-0.1.0.ja
 gs-gradle-yarn-dist/target/gs-gradle-yarn-dist/gs-gradle-yarn-appmaster-0.1.0.jar
 ----
 
-You can run the project with `cd gs-gradle-yarn-dist && java -jar
-target/dist/gs-gradle-yarn-client-0.1.0.jar` but we haven't added the code to 
-actually submit the YARN application yet. So, all you will see is some logging mesages. You will build a complete
-application that you can submit to YARN in the other Getting Started Guides for Spring YARN.
+You can run the project with `java -jar gs-gradle-yarn-dist/target/dist/gs-gradle-yarn-client-0.1.0.jar` 
+but we haven't added the code to 
+actually submit the YARN application yet. So, all you will see is some logging mesages. 
+You will build a complete application that you can submit to YARN in the other 
+Getting Started Guides for Spring YARN.
 
 == Summary
 
