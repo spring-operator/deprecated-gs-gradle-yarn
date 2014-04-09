@@ -38,7 +38,7 @@ First you set up a Java project for Gradle to build. To keep the focus on Gradle
 
 include::https://raw.github.com/spring-guides/getting-started-macros/master/create_directory_structure_yarn_hello.adoc[]
 
-Firts, let's create a `ContainerApplication` class.
+First, let's create a `ContainerApplication` class.
 
 `gs-gradle-yarn-container/src/main/java/hello/container/ContainerApplication.java`
 [source,java]
