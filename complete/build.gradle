@@ -4,7 +4,7 @@ buildscript {
         maven { url "http://repo.spring.io/libs-release" }
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.1.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.3.RELEASE")
     }
 }
 // end::snippetA[]
@@ -26,7 +26,7 @@ subprojects { subproject ->
         maven { url "http://repo.spring.io/libs-release" }
     }
     dependencies {
-        compile("org.springframework.data:spring-yarn-boot:2.1.0.RELEASE")
+        compile("org.springframework.data:spring-yarn-boot:2.2.0.RELEASE")
     }
     task copyJars(type: Copy) {
         from "$buildDir/libs"
@@ -57,7 +57,7 @@ project('gs-gradle-yarn-dist') {
         compile project(":gs-gradle-yarn-client")
         compile project(":gs-gradle-yarn-appmaster")
         compile project(":gs-gradle-yarn-container")
-        testCompile("org.springframework.data:spring-yarn-boot-test:2.1.0.RELEASE")
+        testCompile("org.springframework.data:spring-yarn-boot-test:2.2.0.RELEASE")
         testCompile("org.hamcrest:hamcrest-core:1.2.1")
         testCompile("org.hamcrest:hamcrest-library:1.2.1")
     }
